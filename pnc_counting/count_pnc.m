@@ -22,6 +22,9 @@ function [basic_stats, full_stats, images] = count_pnc(subfolder_path, nd2name, 
 % EXAMPLE
 % perc = count_pnc('IMG1.nd2');
 
+addpath('../common');
+addpath('../common/bfmatlab');
+
 % check if nd2name contains .nd2
 if contains(nd2name, '.nd2')
     nd2name = nd2name(1:end-4);
