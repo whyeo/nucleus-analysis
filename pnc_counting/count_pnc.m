@@ -25,9 +25,9 @@ function [basic_stats, full_stats, images] = count_pnc(nd2path, positive_thresho
 addpath('../common');
 addpath('../common/bfmatlab');
 
-% check if nd2name contains .nd2
-if contains(nd2name, '.nd2')
-    nd2name = nd2name(1:end-4);
+% check if nd2path contains .nd2
+if ~contains(nd2path, '.nd2')
+    nd2path = [nd2path, '.nd2'];
 end
 
 if nargin < 3
@@ -42,7 +42,7 @@ min_nucleus_area = 5000;
 max_nucleus_area = 50000;
 
 % read nd2 file
-imdata = nd2read(fullfile('data', subfolder_path, sprintf('%s.nd2', nd2name)));
+imdata = nd2read(nd2path);
 
 % get the size of the image
 im_size = size(imdata); % XYCZT
