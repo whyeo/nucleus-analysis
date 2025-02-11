@@ -1,4 +1,4 @@
-function [basic_stats, full_stats, images] = count_pnc(subfolder_path, nd2name, debug_on)
+function [basic_stats, full_stats, images] = count_pnc(nd2path, positive_threshold, debug_on)
 % Count the number of PNCs in a given ND2 file
 %
 % Author: Wei Hong Yeo, 2025. whyeo@u.northwestern.edu
@@ -34,8 +34,10 @@ if nargin < 3
     debug_on = false;
 end
 
-% positive threshold
-positive_threshold = 30;
+if nargin < 2
+    positive_threshold = 30;
+end 
+
 min_nucleus_area = 5000;
 max_nucleus_area = 50000;
 
@@ -66,34 +68,12 @@ local_thresh = adaptthresh(ch2,0.01,'NeighborhoodSize',7,'Statistic','gaussian')
 ch2_thresh = imbinarize(ch2, local_thresh);
 
 % perform segmentation using segment anything, (debug_on = true means verbose)
-segmentation_file = fullfile('processed', subfolder_path, sprintf('%s_segmentation.mat', nd2name));
-
-do_segmentation = true;
-if exist(segmentation_file, 'file')
-    segmentation_data = load(segmentation_file, 'masks', 'min_nucleus_area', 'max_nucleus_area');
-    if ~isfield(segmentation_data, 'masks') || ...
-            ~isfield(segmentation_data, 'min_nucleus_area') || ...
-            ~isfield(segmentation_data, 'max_nucleus_area')
-
-    elseif (segmentation_data.min_nucleus_area ~= min_nucleus_area) || ...
-            (segmentation_data.max_nucleus_area ~= max_nucleus_area)
-
-    else
-        masks = segmentation_data.masks;
-        % clear the segmentation_data variable
-        clear segmentation_data;
-        do_segmentation = false;
-    end
-end
-
-if do_segmentation
-    masks = imsegsam(ch1_max,...
-        'MinObjectArea',min_nucleus_area, ...
-        'MaxObjectArea',max_nucleus_area, ...
-        'ScoreThreshold',0.7,...
-        'Verbose',debug_on);
-    save(segmentation_file, 'masks', 'min_nucleus_area', 'max_nucleus_area');
-end
+masks = imsegsam(ch1_max,...
+    'MinObjectArea',min_nucleus_area, ...
+    'MaxObjectArea',max_nucleus_area, ...
+    'ScoreThreshold',0.7,...
+    'Verbose',debug_on);
+save(segmentation_file, 'masks', 'min_nucleus_area', 'max_nucleus_area');
 
 % get statistics of the mask sizes
 im_size = im_size(1:2); % only XY is relevant
