@@ -21,12 +21,14 @@
     Or download the repository as a ZIP file and extract it to a local directory.
 
 2. **Run the Script**
+
     Open MATLAB and navigate to the directory containing `pncCounter.m`. Run the app by executing the following command:
     ```matlab
     pncCounter
     ```
 
 3. **View Results**
+
     The script will output the count of PNCs and any relevant statistics to the MATLAB command window or a specified output file.
 
 # Limitations
