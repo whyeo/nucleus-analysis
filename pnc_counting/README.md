@@ -14,7 +14,7 @@
 
 1. **Clone the Repository**
     ```sh
-    git clone https://github.com/yourusername/nucleus-analysis.git
+    git clone https://github.com/whyeo/nucleus-analysis.git
     cd nucleus-analysis/pnc_counting
     ```
 
@@ -38,7 +38,7 @@
 - Check for any error messages in the MATLAB command window for further debugging.
 
 # Changelog
-Refer to the [CHANGELOG](../CHANGELOG.md) for a complete list of changes.
+Refer to the [CHANGELOG](CHANGELOG.md) for a complete list of changes.
 
 # License
 This project is licensed under the MIT License. See the [LICENSE](../LICENSE) file for details.
