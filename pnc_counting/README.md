@@ -44,4 +44,4 @@ Refer to the [CHANGELOG](../CHANGELOG.md) for a complete list of changes.
 This project is licensed under the MIT License. See the [LICENSE](../LICENSE) file for details.
 
 # Contact
-For any questions or issues, please open an issue on the [GitHub repository](https://github.com/yourusername/nucleus-analysis/issues).
+For any questions or issues, please open an issue [here](https://github.com/whyeo/nucleus-analysis/issues).
