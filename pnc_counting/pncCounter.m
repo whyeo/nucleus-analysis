@@ -30,7 +30,7 @@ classdef pncCounter < matlab.apps.AppBase
     end
 
     % Internal properties and variables
-    properties (Access = public) % public for testing
+    properties (Access = private) % public for testing
         ImageFolder = '';
         SegmentationResultsFolder = '';
 
@@ -225,7 +225,13 @@ classdef pncCounter < matlab.apps.AppBase
         % Callback for InputFolderButton: opens a folder and loads file names into the UITable
         function InputFolderButtonPushed(app, ~)
             folder = uigetdir;
+            app.InputFolderButton.Text = 'Loading...';
+            app.InputFolderButton.Enable = 'off';
+            drawnow;
             app.ImageFolder = folder;
+            % set default segmentation results folder as the image folder
+            app.SegmentationResultsFolder = folder;
+
             if folder ~= 0
                 % List files (excluding directories)
                 files = dir(folder);
@@ -258,6 +264,9 @@ classdef pncCounter < matlab.apps.AppBase
                 app.State.isLoaded = true;
                 app.updateInterface();
             end
+            app.InputFolderButton.Text = 'Select Input Folder';
+            app.InputFolderButton.Enable = 'on';
+            drawnow;
         end
 
         % Callback for ProcessButton: processes all images in the table (for now, just the first image)
@@ -276,7 +285,6 @@ classdef pncCounter < matlab.apps.AppBase
                     app.processImage(i_file);
                 end
             end
-
             % update the state and buttons
             app.State.isProcessing = false;
             app.State.isProcessed = true;
@@ -287,8 +295,6 @@ classdef pncCounter < matlab.apps.AppBase
         function SaveSegmentationResultsCheckBoxValueChanged(app, ~)
             if app.SaveSegmentationResultsCheckBox.Value
                 app.SaveSegmentationResultsFolderButton.Enable = 'on';
-                % set default segmentation results folder as the image folder
-                app.SegmentationResultsFolder = app.ImageFolder;
             else
                 app.SaveSegmentationResultsFolderButton.Enable = 'off';
             end
@@ -403,7 +409,7 @@ classdef pncCounter < matlab.apps.AppBase
             % Get the table data
             data = app.UITable.Data;
             % Get the file name to save the table
-            [file, path] = uiputfile('*.csv', 'Save Table As');
+            [file, path] = uiputfile('*.csv', 'Save Table As', fullfile(app.ImageFolder, 'results.csv'));
             if ischar(file) && ischar(path)
                 % Write the table to a CSV file
                 writetable(cell2table(data), fullfile(path, file));
@@ -443,7 +449,14 @@ classdef pncCounter < matlab.apps.AppBase
                 app.UITable.Enable = 'off';
             end
 
-            if app.State.isProcessed
+            if app.State.isProcessing
+                app.InputFolderButton.Enable = 'off';
+                app.ProcessButton.Enable = 'off';
+                app.VisualizeButton.Enable = 'off';
+                app.ExportTableButton.Enable = 'off';
+                app.SaveVisualizationsButton.Enable = 'off';
+            elseif app.State.isProcessed
+                app.InputFolderButton.Enable = 'on';
                 app.ProcessButton.Enable = 'on';
                 if isempty(app.UITable.Selection)
                     app.VisualizeButton.Enable = 'off';
@@ -453,6 +466,7 @@ classdef pncCounter < matlab.apps.AppBase
                 app.ExportTableButton.Enable = 'on';
                 app.SaveVisualizationsButton.Enable = 'on';
             else
+                app.InputFolderButton.Enable = 'on';
                 app.ProcessButton.Enable = 'on';
                 app.VisualizeButton.Enable = 'off';
                 app.ExportTableButton.Enable = 'off';
@@ -480,7 +494,7 @@ classdef pncCounter < matlab.apps.AppBase
     end
 
     % Internal methods
-    methods (Access = public) % public for testing
+    methods (Access = private) % public for testing
         function image = loadImages(app, filepath)
             % Read the ND2 file
             imdata = nd2read(filepath);
