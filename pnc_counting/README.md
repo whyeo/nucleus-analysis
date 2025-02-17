@@ -1,5 +1,5 @@
 # Overview
-`pncCounter.m` is a MATLAB app designed to count the number of PNCs in a given dataset. This app processes input data and provides a count of the pncs, along with any relevant statistics.
+`pncCounter.m` is a MATLAB app designed to count the number of PNCs in a given dataset. This app processes input data and provides a count of the PNCs, along with any relevant statistics.
 
 # Requirements
 - MATLAB R2024b or later
