@@ -16,8 +16,7 @@
 
 1. **Clone the Repository**
     ```sh
-    git clone https://github.com/whyeo/nucleus-analysis.git
-    cd pnc_counter
+    git clone https://github.com/whyeo/pnc-counter.git
     ```
 
     Or download the repository as a ZIP file and extract it to a local directory.
@@ -48,4 +47,4 @@ Refer to the [CHANGELOG](CHANGELOG.md) for a complete list of changes.
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 # Contact
-For any questions or issues, please open an issue [here](https://github.com/whyeo/nucleus-analysis/issues).
+For any questions or issues, please open an issue [here](https://github.com/whyeo/pnc-counter/issues).
