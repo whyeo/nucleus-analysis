@@ -1,2 +1,51 @@
-# nucleus-analysis
-collection of tools for nucleus analysis
+# Overview
+`pncCounter.m` is a MATLAB app designed to count the number of PNCs in a given dataset. This app processes input data and provides a count of the PNCs, along with any relevant statistics.
+
+# Requirements
+- MATLAB R2024b or later
+- Computer Vision Toolbox
+- Deep Learning Toolbox
+- Image Processing Toolbox
+- [Image Processing Toolbox Model for Segment Anything Model](https://www.mathworks.com/matlabcentral/fileexchange/155864-image-processing-toolbox-model-for-segment-anything-model)
+- Statistics and Machine Learning Toolbox
+
+## Recommended Packages
+- Parallel Computing Toolbox (for GPU acceleration)
+
+# Usage
+
+1. **Clone the Repository**
+    ```sh
+    git clone https://github.com/whyeo/nucleus-analysis.git
+    cd pnc_counter
+    ```
+
+    Or download the repository as a ZIP file and extract it to a local directory.
+
+2. **Run the Script**
+
+    Open MATLAB and navigate to the directory containing `pncCounter.m`. Run the app by executing the following command:
+    ```matlab
+    pncCounter
+    ```
+
+3. **View Results**
+
+    The script will output the count of PNCs and any relevant statistics to the MATLAB command window or a specified output file.
+
+# Limitations
+- The app only works with .nd2 files, and the data must have 2 channels (DAPI and PNC marker).
+
+# Troubleshooting
+- Ensure that your data path is correct and accessible.
+- Verify that you have the necessary MATLAB toolboxes installed.
+- Check for any error messages in the MATLAB command window for further debugging.
+
+# Changelog
+Refer to the [CHANGELOG](CHANGELOG.md) for a complete list of changes.
+
+# License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+# Contact
+For any questions or issues, please open an issue [here](https://github.com/whyeo/nucleus-analysis/issues).

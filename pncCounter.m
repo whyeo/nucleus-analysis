@@ -885,8 +885,8 @@ classdef pncCounter < matlab.apps.AppBase
         function app = pncCounter
             runningApp = getRunningApp(app);
             % addcommon to the path
-            addpath(fullfile(pwd, '..', 'common'));
-            addpath(fullfile(pwd, '..', 'common', 'bfmatlab'));
+            addpath(fullfile(pwd, 'common'));
+            addpath(fullfile(pwd, 'common', 'bfmatlab'));
 
             % Check for running singleton app
             if isempty(runningApp)

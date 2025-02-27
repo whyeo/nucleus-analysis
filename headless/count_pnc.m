@@ -22,9 +22,8 @@ function [basic_stats, full_stats, images] = count_pnc(nd2path, positive_thresho
 % EXAMPLE
 % perc = count_pnc('IMG1.nd2');
 
-addpath('..');
-addpath('../../common');
-addpath('../../common/bfmatlab');
+addpath('../common');
+addpath('../common/bfmatlab');
 
 % check if nd2path contains .nd2
 if ~contains(nd2path, '.nd2')
